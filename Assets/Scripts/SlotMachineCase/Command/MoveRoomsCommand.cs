@@ -1,6 +1,6 @@
 namespace SlotMachineCase.Command
 {
-    public class MoveRoomsCommand : ICommand
+    public struct MoveRoomsCommand : ICommand
     {
         
     }

@@ -1,8 +1,6 @@
-using SlotMachineCase.Command;
-
-namespace SlotMachineCase.Controller
+namespace SlotMachineCase.Command
 {
-    public class SlotMachineCanStartAgainCommand : ICommand
+    public struct SlotMachineCanStartAgainCommand : ICommand
     {
     }
 }

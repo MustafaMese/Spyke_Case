@@ -12,20 +12,20 @@ namespace SlotMachineCase.Controller
 {
     public class SlotMachineRoomController : IController
     {
-        private SlotMachineRoomView _slotMachineView;
-        private SlotMachineRoomModel _slotMachineModel;
+        private readonly SlotMachineRoomView _slotMachineView;
+        private readonly SlotMachineRoomModel _slotMachineModel;
 
-        private ObjectLerper _objectLerper;
-        private UIPathHandler _uiPathHandler;
-        private OutcomeHandler _outcomeHandler;
+        private readonly ObjectLerper _objectLerper;
+        private readonly UIPathHandler _uiPathHandler;
+        private readonly OutcomeHandler _outcomeHandler;
 
         public Action OnStartMoving;
 
-        private List<Vector3> _lastPointsAtPaths = new();
-        private (string left, string middle, string right)[] _outcomeArray;
+        private readonly List<Vector3> _lastPointsAtPaths = new();
+        private (int left, int middle, int right)[] _outcomeArray;
         private int _slotIndex;
 
-        private (bool particulePlay, string key) outcomeValueTuple;
+        private (bool particulePlay, int key) _outcomeValueTuple;
         
         public SlotMachineRoomController(
             IModel model, 
@@ -69,13 +69,13 @@ namespace SlotMachineCase.Controller
             _slotMachineModel.IsMoving.Value = false;
             
             _slotIndex++;
-            _outcomeHandler.SaveOutcome(_slotIndex);
+            _outcomeHandler.SaveOutcome();
             ConfigureRoomUILists();
 
-            if (outcomeValueTuple.particulePlay)
+            if (_outcomeValueTuple.particulePlay)
             {
                 GameManager.Instance.VfxManager.PlayVFX(
-                    outcomeValueTuple.key,
+                    _outcomeValueTuple.key,
                     () =>
                     {
                         GameManager.Instance.CommandManager.InvokeCommand(new SlotMachineCanStartAgainCommand());
@@ -119,19 +119,12 @@ namespace SlotMachineCase.Controller
 
             if (leftIndex == rightIndex && rightIndex == middleIndex)
             {
-                if (_slotMachineModel.GetIndex("Jackpot") == middleIndex)
-                {
-                    extraLongDuration = 2.25f;
-                }
-                else
-                {
-                    extraLongDuration = 1f;
-                }
-                
+                extraLongDuration = _slotMachineModel.GetIndex(0) == middleIndex ? 2.25f : 1f;
+
                 calculateExtraTime = true;
             }
 
-            outcomeValueTuple = (calculateExtraTime, outcome.middle);
+            _outcomeValueTuple = (calculateExtraTime, outcome.middle);
             
             MoveLeftRooms(
                 leftIndex, 

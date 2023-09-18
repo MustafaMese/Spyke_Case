@@ -12,8 +12,6 @@ namespace SlotMachineCase.View
     
     public class SlotMachineView : MonoBehaviour, IView
     {
-        public Button OnHandleClicked;
-        
         [HideInInspector] public StartSpinningUnityEvent OnSpinningStart = new StartSpinningUnityEvent();
         
         public void Initialize()

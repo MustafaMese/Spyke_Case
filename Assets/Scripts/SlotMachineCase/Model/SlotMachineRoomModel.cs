@@ -8,7 +8,7 @@ namespace SlotMachineCase.Model
 
         public Observable<bool> IsMoving => _isMoving;
 
-        private readonly Dictionary<string, int> _outcomeIndexes = new();
+        private readonly Dictionary<int, int> _outcomeIndexes = new();
 
         public SlotMachineRoomModel()
         {
@@ -17,15 +17,15 @@ namespace SlotMachineCase.Model
         
         public void Initialize()
         {
-            _outcomeIndexes.Add("Jackpot", 0);
-            _outcomeIndexes.Add("Wild", 1);
-            _outcomeIndexes.Add("Seven", 2);
-            _outcomeIndexes.Add("Bonus", 3);
-            _outcomeIndexes.Add("A", 4);
+            _outcomeIndexes.Add(0, 0);
+            _outcomeIndexes.Add(1, 1);
+            _outcomeIndexes.Add(2, 2);
+            _outcomeIndexes.Add(3, 3);
+            _outcomeIndexes.Add(4, 4);
 
             _isMoving = new Observable<bool>();
         }
 
-        public int GetIndex(string key) => _outcomeIndexes[key];
+        public int GetIndex(int key) => _outcomeIndexes[key];
     }
 }

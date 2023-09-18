@@ -1,6 +1,6 @@
 namespace SlotMachineCase.Command
 {
-    public class StartInputCommand : ICommand
+    public struct StartInputCommand : ICommand
     {
     }
 }
